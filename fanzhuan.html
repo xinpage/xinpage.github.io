@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+    <meta charset="gb2312">
+    <style>
+        .animated_div{
+            width:60px;
+            height:40px;
+            color:#ffffff;
+            position:relative;
+            font-weight:bold;
+            padding:20px 10px 0px 10px;
+            float:left;
+            margin:0px 50px 20px 20px;
+            border:1px solid #888888;
+            -webkit-border-radius:5px;
+            -moz-border-radius:5px;
+            border-radius:5px;
+            font:12px Verdana, Arial, Helvetica, sans-serif;
+            text-align:center;
+            vertical-align:middle;
+        }
+        #div1 {background:#92B901;transform:rotate(30deg);-webkit-transform:rotate(30deg);-o-transform:rotate(30deg);-moz-transform:rotate(30deg);}
+        #div2 {background:#f98450;transform:scale(2,2);-webkit-transform:scale(2,2);-o-transform:scale(2,2);-moz-transform:scale(2,2);}
+        #div3 {background:#1ec7e6;transform:skew(30deg,20deg);-webkit-transform:skew(30deg,20deg);-o-transform:skew(30deg,20deg);-moz-transform:skew(30deg,20deg);}
+
+        #div1 {-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.8660254037844384, M12=-0.5000000000000004, M21=0.5000000000000004, M22=0.8660254037844384, SizingMethod=auto expand)";}
+        #div2 {-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=2, M12=0, M21=0, M22=2, SizingMethod=auto expand)";}
+        #div3 {-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=1, M12=0.5773502691896265, M21=0.3639702342662022, M22=1, SizingMethod=auto expand)";}
+
+        #rotate1,#rotatey1 {
+            border:1px solid #000000;
+            background:red;
+            margin:10px;
+            opacity:0.7;
+        }
+        .q{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        .q2{
+            transform: rotateY(180deg);
+            display: none;
+        }
+        .flex{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+        }
+        .we{
+            width: 100%;
+            text-align: center;
+        }
+        #canvas{
+            margin: 0 auto;
+            border: 1px solid #000;
+        }
+    </style>
+    <title>CSS3 3D 转换</title>
+</head>
+<!--<body class="html" id="tags">-->
+
+<!--<div onclick="rotateDIV()" id="rotate1" class="animated_div">2D 旋转</div>-->
+<!--<div onclick="" id="rotatey1" class="animated_div">-->
+    <!--<div class="q q1">1</div>-->
+    <!--<div class="q q2">2</div>-->
+<!--</div>-->
+<canvas id="canvas" width="500" height="500"></canvas>
+<!--<div class="flex"><div class="we">wewewe</div></div>-->
+</body>
+<script>
+    function draw21(id) {
+        var canvas = document.getElementById(id);
+        if (canvas == null) return false;
+        var context = canvas.getContext("2d");
+        //实践表明在不设施fillStyle下的默认fillStyle=black
+        context.fillRect(0, 0, 100, 100);
+        //实践表明在不设施strokeStyle下的默认strokeStyle=black
+        context.strokeRect(120, 0, 100, 100);
+
+        //设置纯色
+        context.fillStyle = "red";
+        context.strokeStyle = "blue";
+        context.fillRect(0, 120, 100, 100);
+        context.strokeRect(120, 120, 100, 100);
+
+        //设置透明度实践证明透明度值>0,<1值越低，越透明，值>=1时为纯色，值<=0时为完全透明
+        context.fillStyle = "rgba(255,0,0,0.2)";
+        context.strokeStyle = "rgba(255,0,0,0.2)";
+        context.fillRect(240,0 , 100, 100);
+        context.strokeRect(240, 120, 100, 100);
+    }
+    draw21("canvas");
+</script>
+<!--<script>-->
+    <!--&lt;!&ndash;-->
+    <!--var d=document.getElementById("rotatey1");-->
+    <!--d.onmouseover=function () {-->
+        <!--rotateYDIV();-->
+    <!--};-->
+    <!--d.onmouseout=function () {-->
+        <!--rotateYDIV();-->
+    <!--}-->
+    <!--var x,y,n=0,ny=0,rotINT,rotYINT-->
+    <!--function rotateDIV() {-->
+        <!--x=document.getElementById("rotate1")-->
+        <!--clearInterval(rotINT)-->
+        <!--rotINT=setInterval("startRotate()",10)-->
+    <!--}-->
+    <!--function rotateYDIV(){-->
+        <!--y=document.getElementById("rotatey1")-->
+        <!--clearInterval(rotYINT)-->
+        <!--rotYINT=setInterval("startYRotate()",10)-->
+    <!--}-->
+    <!--function startRotate(){-->
+        <!--n=n+1-->
+        <!--x.style.transform="rotate(" + n + "deg)"-->
+        <!--x.style.webkitTransform="rotate(" + n + "deg)"-->
+        <!--x.style.OTransform="rotate(" + n + "deg)"-->
+        <!--x.style.MozTransform="rotate(" + n + "deg)"-->
+        <!--if (n==180 || n==360)-->
+        <!--{-->
+            <!--clearInterval(rotINT)-->
+            <!--if (n==360){n=0}-->
+        <!--}-->
+    <!--}-->
+    <!--function startYRotate(){-->
+        <!--ny=ny+1-->
+        <!--y.style.transform="rotateY(" + ny + "deg)"-->
+        <!--y.style.webkitTransform="rotateY(" + ny + "deg)"-->
+        <!--y.style.OTransform="rotateY(" + ny + "deg)"-->
+        <!--y.style.MozTransform="rotateY(" + ny + "deg)"-->
+
+        <!--if(ny==90){-->
+            <!--document.getElementsByClassName("q1")[0].style.display="none";-->
+            <!--document.getElementsByClassName("q2")[0].style.display="block";-->
+        <!--}-->
+        <!--if(ny==270){-->
+            <!--document.getElementsByClassName("q1")[0].style.display="block";-->
+            <!--document.getElementsByClassName("q2")[0].style.display="none";-->
+        <!--}-->
+
+        <!--if (ny==180 || ny>=360){-->
+            <!--clearInterval(rotYINT)-->
+            <!--if (ny>=360){ny=0}-->
+        <!--}-->
+    <!--}-->
+    <!--//&ndash;&gt;-->
+<!--var arr=[0,0,0,0,0]-->
+    <!--function pdarr(arr) {-->
+        <!--for (var i=1;i<arr.length;i++){-->
+            <!--if(arr[i-1]!=arr[i]){-->
+                <!--return false;-->
+            <!--}-->
+        <!--}-->
+        <!--return true;-->
+    <!--}-->
+<!--//    alert(pdarr(arr))-->
+<!--</script>-->
+</html>
